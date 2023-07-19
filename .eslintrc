@@ -1,0 +1,30 @@
+module.exports = {
+    env: {
+      browser: true,
+      es2021: true
+    },
+    extends: ["airbnb-base", "plugin:storybook/recommended"],
+    parserOptions: {
+      ecmaFeatures: {
+        jsx: true
+      },
+      ecmaVersion: 12,
+      sourceType: 'module'
+    },
+    plugins: ['react'],
+    rules: {
+      indent: ['error', 2],
+      'react/jsx-uses-vars': 'error',
+      'react/jsx-uses-react': 'error',
+      'no-unused-expressions': 0,
+      'no-multi-str': 'off',
+      'no-underscore-dangle': 'off',
+      'import/no-unresolved': 'off',
+      'comma-dangle': ['error', 'never'],
+      'no-tabs': 0,
+      'linebreak-style': ['error', 'unix'],
+      quotes: ['error', 'single'],
+      semi: ['error', 'always']
+    }
+  };
+  
