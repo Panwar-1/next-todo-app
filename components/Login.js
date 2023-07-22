@@ -7,7 +7,7 @@ const Login = () => {
    const [error, setError] = useState(null);
    const [isLoggingIn, setIsLoggingIn]= useState(true);
 
-   const {login, signup, currentuser} = useAuth();
+   const {login, signup} = useAuth();
 
 
    const submitHandler = async()=>{
@@ -25,9 +25,8 @@ const Login = () => {
       }
 
       await signup(email, password);
+      setIsLoggingIn(true);
    }
-
-   console.log('currentuser', currentuser);
 
   return (
     <div className='flex-1 text-xs sm:text-sm flex flex-col items-center justify-center gap-2 sm:gap-4'>
