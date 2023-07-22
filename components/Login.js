@@ -8,7 +8,7 @@ const Login = () => {
 
    const submitHandler = ()=>{
       if(!email || !password){
-        setError('Please Enter email and password.');
+        setError('Please Enter email and password');
         return;
       }
    }
