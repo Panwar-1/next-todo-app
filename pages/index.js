@@ -1,7 +1,12 @@
 import Head from 'next/head';
 import Login from '../components/Login';
+import { useAuth } from '../context/AuthContext';
+import UserDashBoard from '../components/UserDashBoard';
 
 const index = () => {
+     const {currentUser} = useAuth();
+      console.log('currentUser', currentUser);
+
   return (
     <>
         <Head>
@@ -9,7 +14,9 @@ const index = () => {
         <link rel="favicon" href="/images/streamAlive-favicon.png" />
         <title>Todo App</title>
         </Head>
-        <Login />
+        {!currentUser &&  <Login />}
+        {currentUser && <UserDashBoard />}
+       
     </>
   )
 }

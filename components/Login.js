@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
    const [email, setEmail] = useState('')
@@ -6,12 +7,27 @@ const Login = () => {
    const [error, setError] = useState(null);
    const [isLoggingIn, setIsLoggingIn]= useState(true);
 
-   const submitHandler = ()=>{
+   const {login, signup, currentuser} = useAuth();
+
+
+   const submitHandler = async()=>{
       if(!email || !password){
         setError('Please Enter email and password');
         return;
       }
+
+      if(isLoggingIn){
+        try {
+           await login(email, password);
+        } catch (error) {
+           setError("Incorrect email and password");
+        }
+      }
+
+      await signup(email, password);
    }
+
+   console.log('currentuser', currentuser);
 
   return (
     <div className='flex-1 text-xs sm:text-sm flex flex-col items-center justify-center gap-2 sm:gap-4'>
@@ -21,7 +37,7 @@ const Login = () => {
 
       <input type="text" value={email} onChange={(e)=> setEmail(e.target.value)} className='outline-none text-slate-800 p-2 w-full max-w-[40ch] duration-300 border-b-2 border-solid border-white focus:border-cyan-300' placeholder='Email Address'/>
 
-      <input type="text" value={password} onChange={(e)=> setPassword(e.target.value)}  className='outline-none text-slate-800 p-2 w-full max-w-[40ch] duration-300 border-b-2 border-solid border-white focus:border-cyan-300' placeholder='Password'/>
+      <input type="password" value={password} onChange={(e)=> setPassword(e.target.value)}  className='outline-none text-slate-800 p-2 w-full max-w-[40ch] duration-300 border-b-2 border-solid border-white focus:border-cyan-300' placeholder='Password'/>
 
        <button onClick={submitHandler} className='w-full max-w-[40ch] border border-white border-solid uppercase py-2 font-Poppins'>submit</button>
 

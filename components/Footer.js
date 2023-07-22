@@ -1,10 +1,13 @@
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee, faLinkedin, faInstagram } from '@fortawesome/free-solid-svg-icons'
+
 
 const Footer = () => {
   return (
-    <div className='stricky bottom-0 w-full left-0 flex items-center justify-between p-4 border-t border-solid border-white bg-inherit'>
-        <h1 className=' text-2xl sm:text-4xl font-Poppins select-none'>Footer</h1>
-        <i className="fa-thin fa-user text-xl sm:text-3xl cursor-pointer duration-300 hover:opacity-40"></i>
+    <div className="flex items-center justify-center gap-5 py-3">
+      <FontAwesomeIcon icon={faLinkedin} />
+      <FontAwesomeIcon icon={faInstagram} />
     </div>  )
 }
 
