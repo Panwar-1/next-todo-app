@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import TodoCard from './TodoCard';
-import {doc, setDoc} from 'firebase/firestore';
+import {doc, setDoc, deleteField} from 'firebase/firestore';
 import {db} from '../firebase';
 import fetchTodo from '../hook/fetchTodo';
 
 const UserDashBoard = () => {
-
     const {userInfo, currentUser} = useAuth();
     const [addTodo, setAddTodo] = useState(false);
     const [todo, setTodo] = useState('');
@@ -43,6 +42,22 @@ const UserDashBoard = () => {
        }
     }, [todos])
 
+     const handleDeleteTodo = async(todoKey)=>{
+      return async()=> {
+          const tempObj = {...todoList};
+          delete tempObj[todoKey];
+          setTodoList(tempObj);
+          
+          const userRef = doc(db, 'users', currentUser.uid);
+          await setDoc(userRef, {
+            'todos': {
+              [todoKey]: deleteField()
+            }
+          }, {merge: true});
+      }
+     }
+
+
 
   return (
     <div className='w-full max-w-[65ch] mx-auto flex flex-col items-center justify-center  gap-3 sm:gap-5 text-xs sm:text-sm'>
@@ -57,7 +72,7 @@ const UserDashBoard = () => {
      {(userInfo && !loading) && <>
        {
          Object.values(todoList).map((todo, index)=>{
-            return <TodoCard todo={todo} index={index} />
+            return <TodoCard todo={todo} index={index} handleDeleteTodo={handleDeleteTodo}/>
         })
        }
      </>}
